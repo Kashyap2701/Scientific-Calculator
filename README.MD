@@ -21,8 +21,7 @@ This is a web-based scientific calculator application built using HTML, CSS, and
 - The calculator allows you to switch between degree and radian modes. To change modes, follow these steps:
 - Click on "DEG" or "RAD" button it will toggle.
 
-## Known Issues
+## Limitations
 - The calculator may encounter errors if you input an incorrect mathematical expression 
-- The calculator may get infinity if you divide number by zero.
 - The calculator does not support imaginary numbers or complex numbers.
 - The calculator may display a result in scientific notation for large or small numbers.
