@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap');
+
+/* --------------------- ------------ -------------------- */
+/* --------------------- REST CLASSES -------------------- */
+/* --------------------- ------------ -------------------- */
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
+}
+
+button{
+    height: 50px;
+    width: 80px;
+    font-size: medium;
+    cursor: pointer;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.219);
+    border: 1px solid  rgba(48, 48, 48, 0.411);
+    border-radius: 5px;
+}
+
+button:active{
+    transform: translate(1px);
+}
+
+button:hover{
+    background-color: rgba(70, 70, 70, 0.3);
+}
+
+input[type=text]{
+    background-color: inherit;
+    color: white;
+    border: none;
+    outline: none;
+    text-align: right;
+    padding: 0px 10px;
+    overflow: auto;
+}
+
+input::placeholder{
+    color: white;
+}
+
+i {
+    pointer-events: none;
+}
+/* --------------------- ------------ --------------------- */
+/* --------------------- REUSE CLASSES -------------------- */
+/* --------------------- ------------ --------------------- */
+
+
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(232, 232, 232);
+    justify-content: center;
+    position: relative;
+}
+
+.error-message-wrapper{
+    display: none;
+    position: fixed;
+    align-items: center;
+    justify-items: auto;
+    width: 400px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: rgb(243, 49, 49);
+    border: 1px solid rgb(233, 108, 108);
+    border-radius: 2px;
+    background-color: rgb(243, 192, 192);
+    top: 20px;
+}
+.error-message-wrapper i{
+    cursor: pointer;
+}
+.error-message-wrapper span{
+    flex: 1;
+}
+
+.calculator-container{
+    width: 400px;
+    margin: 0 auto;
+    box-sizing: content-box;
+    padding: 5px;
+    background-color: rgba(48, 48, 48, 0.651);
+}
+
+.calculator-header{
+    color: rgb(245, 245, 245);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.calculator-input-wrapper{
+    margin: 20px 0px;
+}
+
+.calculator-input-wrapper #display-expression{
+    height: 30px;
+    width: 100%;
+    font-weight: 300;
+    font-size: medium;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+.calculator-input-wrapper #cal-input{
+    height: 60px;
+    max-width: 100%;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.calculator-btns{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(10,auto);
+}
+
+.state-change-btns{
+    grid-column: 1 / 6;
+    display: flex;
+}
+
+.state-change-btns button{
+    height: 30px;
+    width: 80px;
+    background-color: inherit;
+    border: none;
+}
+
+.dropdown{
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: fit-content;
+    font-size: medium;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.219);
+    border: 1px solid rgba(48, 48, 48, 0.603);
+    padding: 0px 10px;
+    outline: none;
+    position: relative;
+}
+
+.dropdown i{
+    margin-left: 10px;
+}
+
+.dropdown-items{
+    display: none;
+    flex-wrap: wrap;
+    width: 240px;
+    color: black;
+    position: absolute;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.dropdown-items button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    width: 80px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgb(148, 148, 148);
+    border: 2px solid rgb(89, 89, 89);
+}
+
+.dropdown-item:hover{
+    background-color: rgb(49, 49, 49);
+}
+
+.memory-functions{
+    grid-column: 1 / 6;
+    display: flex;
+}
+
+.memory-functions button{
+    height: 40px;
+    background-color: inherit;
+    border: none;
+}
+
+.memory-functions .button-disable{
+    color: darkgray;
+}
+
+.memory-functions button:hover{
+    background-color: rgba(70, 70, 70, 0.3);
+}
+
+.memory-functions button, .state-change-btns button {
+    font-weight: 500;
+    font-size: small;
+}
+
+.mathametics-function{
+    grid-column: 1 / 6;
+    display: flex;
+    gap:2px;
+}
+ 
+.constant-values{
+    grid-column: 2 / 4;
+    display: flex;
+   
+}
+
+.clear-buttons{
+    grid-column : 4 / 6;
+    display: flex;
+}
+
+
+.advanced-functions{
+    grid-row: 4 / 11;
+    grid-column: 1 / 1;
+
+}
+
+#hidden-column{
+    display: none;
+}
+
+.simple-functions{
+    grid-column: 2 / 5;
+    grid-row: 5 / 7;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.operators{
+    grid-row: 5 / 11;
+    grid-column: 5 / 5;
+    display: flex;
+    flex-direction: column;
+}
+
+.color-blue{
+    background-color: rgb(101, 164, 247);
+}
+
+.digits{
+    grid-column: 2 / 5;
+    grid-row: 7 / 11;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.digits button{
+    background-color: rgba(0, 0, 0, 0.301);
+    font-weight: 600;
+    font-size: x-large;
+}
+
+.digits button:hover{
+    background-color: rgba(0, 0, 0, 0.400);
+}

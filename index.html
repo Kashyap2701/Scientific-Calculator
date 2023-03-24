@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="shortcut icon" href="./Images/Calculator_icon.webp" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script defer src="./script.js"></script>
+</head>
+<body>
+
+    <!-- A container to display error messages -->
+    <div id="error-container" class="error-message-wrapper">
+        <span id="error-message">Expression</span>
+    </div>
+    
+    <!-- The main container for the calculator -->
+    <div class="calculator-container">
+
+        <div class="calculator-header">
+            <i class="fa-solid fa-bars"></i>
+            <p class="calculator-header-text">Scientific Calculator</p>
+        </div>
+
+        <!-- The input of calculator that include two display  -->
+        <div class="calculator-input-wrapper">
+            <input id="display-expression" type="text" readonly>
+            <input id="cal-input" type="text" placeholder="0">
+        </div>
+
+        <div id="calculator-btns" class="calculator-btns">
+
+            <!-- State change buttons to toggle between degree and radian mode -->
+            <div class="state-change-btns">
+                <button id="toggle-angle">DEG</button>
+                <button id="F-E">F-E</button>
+            </div>
+            
+            <!-- Memory function buttons to store, recall, and manipulate values in memory -->
+            <div id="memory-buttons" class="memory-functions">
+                <button class="button-disable" value="MC">MC</button>
+                <button class="button-disable" value="MR">MR</button>
+                <button value="M+">M+</button>
+                <button value="M-">M-</button>
+                <button value="MS">MS</button>
+            </div>
+            
+            <div id="maths-functions" class="mathametics-function">
+
+                <!-- Dropdown button for trigonometric functions -->
+                <div>
+                    <button id="trigo-functions" class="dropdown">
+                        &lrtri; Trigonometry<i class="fa-sharp fa-solid fa-angle-down"></i>
+                    </button>
+                    <div id="trigo-functions-dropdown" class="dropdown-items">
+                        <button class="dropdown-item" value="sin">sin</button>
+                        <button class="dropdown-item" value="cos">cos</button>
+                        <button class="dropdown-item" value="tan">tan</button>
+                        <button class="dropdown-item" value="cot">cot</button>
+                        <button class="dropdown-item" value="sec">sec</button>
+                        <button class="dropdown-item" value="cosec">cosec</button>
+                    </div>
+                </div>
+
+                <!-- Dropdown button for value functions like ceil,floor and absolute -->
+                <div>
+                    <button id="value-functions" class="dropdown">&fnof; function
+                        <i class="fa-sharp fa-solid fa-angle-down"></i>
+                    </button>
+                    <div id="value-functions-dropdown" style="display:none" class="dropdown-items">
+                        <button class="dropdown-item" value="ceil">&lceil;x&rceil;</button>
+                        <button class="dropdown-item" value="floor">&lfloor;x&rfloor;</button>
+                        <button class="dropdown-item" value="abs">|x|</button>          
+                    </div>
+                </div>
+            </div>
+
+            <!-- constant value buttons for utility  -->
+            <div class="constant-values">
+                <button value="pi" data-pi="&pi;">&pi;</button>
+                <button value="e">e</button>
+            </div>
+
+            <!-- This div contains two buttons that clear the input field when clicked. -->
+            <div class="clear-buttons">
+                <button onclick=clearInput()>C</button>
+                <button onclick=clearLastInput()><i class="fa-solid fa-delete-left"></i></button>
+            </div>
+
+            <!-- This div contains a button that toggles the visibility of the advanced mathematical functions. -->
+            <!-- It has two nested divs that each contain a set of buttons for the functions. -->
+            <div class="advanced-functions">
+                <button id="flipColumn">2<sup>nd</sup></button>
+                <div id="visible-column">
+                    <button value="^2)">x<sup>2</sup></button>
+                    <button value="sqrt">&radic;x</button>
+                    <button value="x^y">X<sup>y</sup></button>
+                    <button value="10^">10<sup>x</sup></button>
+                    <button value="log(">log</button>
+                    <button value="ln(">ln</button>
+                </div>
+                
+                <div id="hidden-column">
+                    <button value="^3">x<sup>3</sup></button>
+                    <button value="cbrt"><sup>3</sup>&radic;x</button>
+                    <button value="yrootx"><sup>y</sup>&radic;x</button>
+                    <button value="2^">2<sup>x</sup></button>
+                    <button value="log(x,2)">log<sub>2</sub>x</button>
+                    <button value="e^x">e<sup>x</sup></button>
+                </div>
+            </div>
+
+            <!-- simple function buttons -->
+            <div class="simple-functions">
+                <button value="1/">1/x</button>
+                <button value="|">|x|</button>
+                <button value="exp">exp</button>
+                <button value='('>(</button>
+                <button value=')'>)</button>
+                <button value="!">n!</button>
+            </div>
+            
+            <!-- operator buttons for performing operation -->
+            <div class="operators">
+                <button value="%">mod</button>
+                <button value="/">&divide;</button>
+                <button value="*">&times;</button>
+                <button value="+">+</button>
+                <button value="-">-</button>
+                <button id="equal-to" class="color-blue" value="=">=</button>
+            </div>
+            
+             <!-- digits buttons for taking operaands -->
+            <div class="digits">
+                <button class="digit" value="7">7</button>
+                <button class="digit" value="8">8</button>
+                <button class="digit" value="9">9</button>
+                <button class="digit" value="4">4</button>
+                <button class="digit" value="5">5</button>
+                <button class="digit" value="6">6</button>
+                <button class="digit" value="1">1</button>
+                <button class="digit" value="2">2</button>
+                <button class="digit" value="3">3</button>
+                <button value="-">+/-</button>
+                <button class="digit" value="0">0</button>
+                <button class="dot" value=".">.</button>
+            </div>  
+
+        </div>
+
+    </div>
+    
+</body>
+</html>
