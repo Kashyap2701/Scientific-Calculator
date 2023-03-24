@@ -98,46 +98,47 @@ memoryButtons.addEventListener('click',(e)=>{
 // Digits
 digits.addEventListener("click", (e) => {
 
-  if (e.target.value === "-" ) {
-      let exp = spiltsByOperator(calculatorInput.value).slice(0,-1).join("");
-      let number = spiltsByOperator(calculatorInput.value).slice(-1).join("");
-      if(!isNaN(calculatorInput.value))
-        calculatorInput.value = number*-1;
-      else{
-        if(exp.charAt(exp.length-1)=="-"){
-          calculatorInput.value = `${exp.slice(0,-1)}+${number}`;
-        }
-        else if(exp.charAt(exp.length-1)=="+"){
-          calculatorInput.value = `${exp.slice(0,-1)}${number*-1}`;
-        }
-        else if(number == ")" && exp.charAt(0)=="("){
-          calculatorInput.value = `-${exp}${number}`;
-        }
-        else if(number == ")" && exp.charAt(0)=="-"){
-          calculatorInput.value = `${exp.slice(1)}${number}`;
-        }
-        else if(!isNaN(number)){
-          calculatorInput.value = `${exp}${number*-1}`;
-        }
+  if(e.target.tagName === "BUTTON"){
+    if (e.target.value === "-" ) {
+        let exp = spiltsByOperator(calculatorInput.value).slice(0,-1).join("");
+        let number = spiltsByOperator(calculatorInput.value).slice(-1).join("");
+        if(!isNaN(calculatorInput.value))
+          calculatorInput.value = number*-1;
         else{
-          showError('Check your expression')
+          if(exp.charAt(exp.length-1)=="-"){
+            calculatorInput.value = `${exp.slice(0,-1)}+${number}`;
+          }
+          else if(exp.charAt(exp.length-1)=="+"){
+            calculatorInput.value = `${exp.slice(0,-1)}${number*-1}`;
+          }
+          else if(number == ")" && exp.charAt(0)=="("){
+            calculatorInput.value = `-${exp}${number}`;
+          }
+          else if(number == ")" && exp.charAt(0)=="-"){
+            calculatorInput.value = `${exp.slice(1)}${number}`;
+          }
+          else if(!isNaN(number)){
+            calculatorInput.value = `${exp}${number*-1}`;
+          }
+          else{
+            showError('Check your expression')
+          }
         }
-      }
+    }
+    else if(e.target.value === "."){
+      calculatorInput.value += 
+        calculatorInput.value.includes(".") && spiltsByOperator(calculatorInput.value).slice(-1).join("").includes(".")
+         ? ''
+         : e.target.value
+    }
+    else {
+      let lastVal = getLastValue(calculatorInput.value);
+      if(lastVal==")" || lastVal==PI)
+        calculatorInput.value += `*${e.target.value}`;
+      else
+        calculatorInput.value += e.target.value;
+    }
   }
-  else if(e.target.value === "."){
-    calculatorInput.value += 
-      calculatorInput.value.includes(".") && spiltsByOperator(calculatorInput.value).slice(-1).join("").includes(".")
-       ? ''
-       : e.target.value
-  }
-  else {
-    let lastVal = getLastValue(calculatorInput.value);
-    if(lastVal==")" || lastVal==PI)
-      calculatorInput.value += `*${e.target.value}`;
-    else
-      calculatorInput.value += e.target.value;
-  }
-
 });
 
 // Operators
