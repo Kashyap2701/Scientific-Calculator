@@ -1,17 +1,17 @@
 let calculatorInput = document.getElementById("cal-input");
 let display = document.getElementById("display-expression");
-let digits = document.getElementsByClassName("digits")[0];
-let operators = document.getElementsByClassName("operators")[0];
-let calculatorButtons = document.getElementById("calculator-btns");
-let mathFunctions = document.getElementById("maths-functions");
-let degToRed = document.getElementById('toggle-angle');
-let memoryButtons = document.getElementById('memory-buttons');
-let equalButton = document.getElementById("equal-to");
-let errorContainer = document.getElementById('error-container');
-let flipColumn = document.getElementById('flipColumn');
+const digits = document.getElementsByClassName("digits")[0];
+const operators = document.getElementsByClassName("operators")[0];
+const calculatorButtons = document.getElementById("calculator-btns");
+const mathFunctions = document.getElementById("maths-functions");
+const degToRed = document.getElementById('toggle-angle');
+const memoryButtons = document.getElementById('memory-buttons');
+const equalButton = document.getElementById("equal-to");
+const errorContainer = document.getElementById('error-container');
+const flipColumn = document.getElementById('flipColumn');
 
-let dropDown = document.getElementsByClassName('dropdown');
-let dropDownItems = document.getElementsByClassName('dropdown-items');
+const dropDown = document.getElementsByClassName('dropdown');
+const dropDownItems = document.getElementsByClassName('dropdown-items');
 
 // variable that store global value
 
@@ -542,10 +542,6 @@ function infixToPrefix(expression) {
       c === "%" ||
       c === "^" 
     ) {
-      if(c === "-" && (n=="+"|| n=="-"|| n=="*" || n=="/" || n=="^" || n=="%")){
-        result += c + " ";
-      }
-      else{
         while (
           stack.length > 0 &&
           stack[stack.length - 1] !== ")" &&
@@ -558,8 +554,6 @@ function infixToPrefix(expression) {
         } else {
           stack.push(c);
         }
-      }
-      
     }
   }
 
@@ -627,65 +621,57 @@ function evaluatePrefix(expression) {
 // divide the expression Using Operator
 function spiltsByOperator(expression) {
   
-   // list of operators to split by
   const operators = ["+", "*", "-", "/", "(", ")", "%", "^",PI];
 
-  // store current multi-digit number
-  let currentNumber = ""; 
+  let curToken = ""; 
 
-   // array to store the parts of the expression
-  const parts = [];
+  const tokens = [];
 
   for (let i = 0; i < expression.length; i++) {
+
     const char = expression[i];
 
     if (operators.includes(char)) {
 
-      // if the character is an operator
-      if (currentNumber !== "") {
-        
-        // add it to the parts array
-        parts.push(currentNumber); 
-        // reset the current number variable
-        currentNumber = ""; 
+      if (curToken !== "") {
+        tokens.push(curToken); 
+        curToken = ""; 
       }
+      tokens.push(char);
 
-      parts.push(char); // add the operator to the parts array
     } 
     else {
-      // add the digit to the current number
-      currentNumber += char; 
+      curToken += char; 
       if (i === expression.length - 1) {
-        // add the current number to the parts array
-        parts.push(currentNumber); 
+        tokens.push(curToken); 
       }
     }
   }
 
   // now seprate the negative value in expression
-  for (let item in parts) {
+  for (let i=0;i<tokens.length;i++) {
 
     // if part is "-" symbol
-    if (parts[item] == "-") {
+    if (tokens[i] == "-") {
       
       if (
-        (item == 0 && parts[item + 1] != "(") ||
-        parts[item - 1] == "(" ||
-        (isNaN(parts[item - 1]) && parts[item - 1] != ")")
+        (i == 0 && tokens[i + 1] != "(") ||
+        tokens[i - 1] == "(" ||
+        (isNaN(tokens[i - 1]) && tokens[i - 1] != ")")
       ) {
-        let x = parts[item];
-        let y = parts[Number(item) + 1];
+        let x = tokens[i];
+        let y = tokens[Number(i) + 1];
         let temp = x + y;
-        parts.splice(item, 2, temp);
+        tokens.splice(i, 2, temp);
        
       }
-      if(parts[item]=="-(")
+      if(tokens[i]=="-(")
       {
-        parts.splice(item,1,"-","(");
+        tokens.splice(i,1,"-","(");
       }
     }
   }
-  return parts;
+  return tokens;
 }
 
 function isBalanced(str) {
