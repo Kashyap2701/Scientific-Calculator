@@ -203,6 +203,7 @@ body{
 
 .memory-functions .button-disable{
     color: darkgray;
+    pointer-events: none;
 }
 
 .memory-functions button:hover{

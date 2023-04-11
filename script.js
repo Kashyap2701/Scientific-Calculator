@@ -18,7 +18,7 @@ const dropDownItems = document.getElementsByClassName('dropdown-items');
 let actualExpression = "";
 let isCalculatorInputAdd = false;
 let angleInDegree = true;
-let memoryValue = 0;
+let memoryValue;
 
 // define constant for PI
 const PI = "\u03C0";
@@ -65,7 +65,6 @@ memoryButtons.addEventListener('click',(e)=>{
         e.target.parentNode.firstElementChild.nextElementSibling.removeAttribute('class');
         break;
       case "MC" :
-        curDigit = memoryValue;
         memoryValue = 0;
         e.target.setAttribute('class','button-disable');
         e.target.parentNode.lastElementChild.removeAttribute('class');
@@ -77,21 +76,31 @@ memoryButtons.addEventListener('click',(e)=>{
         actualExpression = "";
         break;
       case "M-" :
-        display.value = `${curDigit}-${memoryValue}=`;
         actualExpression = `${curDigit}-${memoryValue}`;
-        calculatorInput.value = evaluatePrefix(infixToPrefix(actualExpression));
+        memoryValue = evaluatePrefix(infixToPrefix(actualExpression));
         actualExpression = "";
         break;
     }
   }
-  else{
+
     switch(e.target.value){
       case "MR" :
-        curDigit = memoryValue;
+        console.log('click');
+        if(calculatorInput.value){
+          const op = getLastValue(calculatorInput.value);
+          if(op=="+" || op=="-" || op=="/" || op=="*" || op=="%" || op=="^" || op==PI)
+            curDigit += memoryValue;
+          else
+            curDigit += `*${memoryValue}`;
+            console.log(curDigit);
+        }
+        else{
+          curDigit = memoryValue;
+        }
         break;
-    }
+
+      }
     calculatorInput.value = curDigit;
-  }
   
 })
 
@@ -139,6 +148,7 @@ digits.addEventListener("click", (e) => {
         calculatorInput.value += e.target.value;
     }
   }
+  calculatorInput.focus();
 });
 
 // Operators
